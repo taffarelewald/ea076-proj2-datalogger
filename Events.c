@@ -207,9 +207,9 @@ void send_string(char* s) {
 
 /*Funcao chamada apos medicao ADC*/
 void AD1_OnEnd(void) {
-	AD1_GetValue8(&LDR_value);		//valor ADC medido eh guardado na variavel LDR_value
+	AD1_GetValue8(&LDR_value);	//valor ADC medido eh guardado na variavel LDR_value
 	
-	/*Caso em que usuario queira realizar uma medida, por meio da comunicacao pelo computador ou pelo teclado matricial*/
+	/*Caso em que usuario queira realizar uma medida (funcao MEASURE), por meio da comunicacao pelo computador ou pelo teclado matricial*/
 	if (UART_state == 3 || keyboard_state == 3) { 
 		send_string("Valor medido: ");
 		send_int(LDR_value);
@@ -223,7 +223,7 @@ void file_system(uint8_t mem_data) {
 	byte index; //variavel que armazena indice na memoria
 
 	EE241_ReadByte(0, &index);	//le numero de elementos existentes na memoria e guarda na variavel index
-	index++;					//atualiza indice na memoria para posicao a ser realizada a gravacao do dado
+	index++;			//atualiza indice na memoria para posicao a ser realizada a gravacao do dado
 
 	/*Grava um dado no sistema de arquivos na posicao index*/
 	EE241_WriteByte(index, (byte) mem_data);
@@ -238,8 +238,8 @@ void TI1_OnInterrupt(void) {
 
 	char keyboard_buffer[4]; 	//string que recebe entrada do teclado matricial
 	int i, j;
-	int flag_write = 0;			//variavel responsavel por indicar que o buffer esta pronto para ser escrito
-	int column[3];				//array que contem estado de cada coluna do teclado matricial
+	int flag_write = 0;		//variavel responsavel por indicar que o buffer esta pronto para ser escrito
+	int column[3];			//array que contem estado de cada coluna do teclado matricial
 
 	/*Varredura do teclado matricial*/
 	
@@ -281,7 +281,6 @@ void TI1_OnInterrupt(void) {
 				}
 			}
 		}
-		
 		/*Desativa a linha que foi testada*/
 		Row_SetBit(i);
 	}
@@ -289,16 +288,13 @@ void TI1_OnInterrupt(void) {
 	/*Compara as strings recebidas pelo teclado para definir tarefa a ser executada*/
 	if (str_cmp(keyboard_buffer, "#1*", 3)) {
 		keyboard_state = 1;
-
 	}
 	if (str_cmp(keyboard_buffer, "#2*", 3)) {
 		keyboard_state = 2;
-
 	}
 	if (str_cmp(keyboard_buffer, "#3*", 3)) {
 		send_string("Medicao automatica ativada\n\r");
 		keyboard_state = 3;
-
 	}
 	if (str_cmp(keyboard_buffer, "#4*", 3)) {
 		send_string("Medicao automatica desativada\n\r");
