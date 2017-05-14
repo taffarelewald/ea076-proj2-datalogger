@@ -1,13 +1,13 @@
 /* ===================================================================
-**	Projeto 2: Datalogger
+**  Projeto 2: Datalogger
 **  
 **  Taffarel Cunha Ewald 147957
 **  Daniel Rodrigues Silveira Freitas 145782
 **        
-**	Programa implementa um sistema Datalogger que captura dados de um
-** 	sensor de dados ambientais, possuindo interface com o computador e 
-**	um teclado matricial, e grava os dados obtidos em uma memoria EEPROM,
-**	utilizando um sistema de arquivos.
+**  Programa implementa um sistema Datalogger que captura dados de um
+**  sensor de dados ambientais, possuindo interface com o computador e 
+**  um teclado matricial, e grava os dados obtidos em uma memoria EEPROM,
+**  utilizando um sistema de arquivos.
 ** ===================================================================*/
 
 /* MODULE Events */
